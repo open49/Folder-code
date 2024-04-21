@@ -1,0 +1,9 @@
+function h_idea = idea_LPF(wc, L)
+L = round(L);
+if(mod(L,2) == 0)
+	L = L + 1;
+end
+n = -(L-1)/2 : (L-1)/2;
+n(ceil(L/2)) = eps;
+h_idea = sin(wc*n)./(pi*n); % Phuong trinh 6.6 sach DSP LTrung
+end

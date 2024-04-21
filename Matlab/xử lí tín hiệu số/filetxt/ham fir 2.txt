@@ -1,0 +1,29 @@
+clear; close all; clc;
+wp = 0.2*pi; 
+ws = 0.75*pi; 
+wc = (wp + ws)/2; % cut-off freq
+M = ceil((2*pi*3.47)/(ws - wp)); %Length of windows
+n = [0:1:M-1];
+hd = idea_LPF(wc, M);
+windows = hamming(M); % This can be replaced by hanning(M), rectwin(M), blackman(M),...depending on Line 5 (Type of Windows)
+h = hd.*windows.';
+subplot(2,2,1)
+stem(n, hd)
+title('Dap ung xung cua bo loc ly tuong')
+grid on
+axis tight; xlabel('n'); ylabel('hd(n)')
+subplot(2,2,2)
+stem(n, windows);
+title('Cua so Hammming'); grid on; axis tight
+xlabel('n')
+ylabel('w_hamm(n)')
+subplot(2,2,3)
+stem(n, h);
+title('Dap ung xung cua bo loc thuc te')
+grid on
+axis tight; xlabel('n'); ylabel('h(n)')
+subplot(2,2,4)
+[mag, pha] = freqz(h, 1);
+plot(pha/pi, 20*log10(abs(mag)));
+grid on
+title('Dap ung bien do'); axis tight; xlabel('pha/pi'); ylabel('|H(w)|')

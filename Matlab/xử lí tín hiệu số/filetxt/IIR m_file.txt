@@ -1,0 +1,38 @@
+clear; close; clc;
+Fs = 8000;
+Ts = 1/Fs;
+t = [0:Ts:2];
+F_A = 440;
+
+Tone_A = sin(2*pi*F_A*t);
+% sound(Tone_A, Fs);
+% pause(4)
+
+noise = sin(2*pi*1500*t);
+% sound(noise, Fs);
+% pause(4)
+
+noisy_sig = Tone_A + noise;
+% sound(noisy_sig, Fs);
+% pause(4)
+
+[b,a] = butter(50, 800*2/Fs, 'low');
+org = filter(b, a, noisy_sig);
+% sound(org, Fs);
+% pause(4)
+
+subplot(4,1,1)
+plot(Tone_A)
+xlim([0 200])
+
+subplot(4,1,2)
+plot(noise)
+xlim([0 200])
+
+subplot(4,1,3)
+plot(noisy_sig)
+xlim([0 200])
+
+subplot(4,1,4)
+plot(org)
+xlim([0 200])

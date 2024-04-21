@@ -1,0 +1,10 @@
+clear; close all; clc;
+L = 101;
+h_id = idea_LPF(pi/5, L);
+[H1 W1] = freqz(h_id, 1);
+plot(abs(H1), 'LineWidth', 3);
+w = hamming(L);
+h = h_id.*w.';
+[H2 W2] = freqz(h, 1);
+hold on
+plot(abs(H2), 'LineWidth', 3);
